@@ -1,8 +1,7 @@
-; bkerndev - Bran's Kernel Development Tutorial
-; By:   Brandon F. (friesenb@gmail.com)
-; Desc: Kernel entry point, stack, and Interrupt Service Routines.
 ;
-; Notes: No warranty expressed or implied. Use at own risk.
+;  Zos Attempt 5 v0.5
+;  Author: Zac McChesney
+;
 ;
 ; This is the kernel's entry point. We could either call main here,
 ; or we can use this to setup the stack or other nice stuff, like
@@ -43,6 +42,7 @@ mboot:
 ; will insert an 'extern _main', followed by 'call _main', right
 ; before the 'jmp $'.
 stublet:
+	push ebx
     extern main
     call main
     jmp $
@@ -516,6 +516,9 @@ irq_common_stub:
     add esp, 8
     iret
 
+_exit:
+	;TODO
+	
 ; Here is the definition of our BSS section. Right now, we'll use
 ; it just to store the stack. Remember that a stack actually grows
 ; downwards, so we declare the size of the data before declaring

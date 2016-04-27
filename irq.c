@@ -1,8 +1,7 @@
-/* bkerndev - Bran's Kernel Development Tutorial
-*  By:   Brandon F. (friesenb@gmail.com)
-*  Desc: Interrupt Request management
-*
-*  Notes: No warranty expressed or implied. Use at own risk. */
+/*
+*  Zos Attempt 5 v0.5
+*  Author: Zac McChesney
+*/
 #include <system.h>
 
 /* These are own ISRs that point to our special IRQ handler

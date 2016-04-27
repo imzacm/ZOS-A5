@@ -1,8 +1,7 @@
-/* bkerndev - Bran's Kernel Development Tutorial
-*  By:   Brandon F. (friesenb@gmail.com)
-*  Desc: Screen output functions for Console I/O
-*
-*  Notes: No warranty expressed or implied. Use at own risk. */
+/*
+*  Zos Attempt 5 v0.5
+*  Author: Zac McChesney
+*/
 #include <system.h>
 
 /* These define our textpointer, our background and foreground
@@ -71,6 +70,27 @@ void cls()
 
     /* Sets the entire screen to spaces in our current
     *  color */
+    for(i = 2; i < 23; i++)
+        memsetw (textmemptr + i * 80, blank, 80);
+
+    /* Update out virtual cursor, and then move the
+    *  hardware cursor */
+    csr_x = 0;
+    csr_y = 2;
+    move_csr();
+}
+
+void cls1()
+{
+    unsigned blank;
+    int i;
+
+    /* Again, we need the 'short' that will be used to
+    *  represent a space with color */
+    blank = 0x20 | (attrib << 8);
+
+    /* Sets the entire screen to spaces in our current
+    *  color */
     for(i = 0; i < 25; i++)
         memsetw (textmemptr + i * 80, blank, 80);
 
@@ -91,6 +111,8 @@ void putch(unsigned char c)
     if(c == 0x08)
     {
         if(csr_x != 0) csr_x--;
+		where = textmemptr + (csr_y * 80 + csr_x);
+        *where = ' ' | att;
     }
     /* Handles a tab by incrementing the cursor's x, but only
     *  to a point that will make it divisible by 8 */
@@ -136,6 +158,40 @@ void putch(unsigned char c)
     move_csr();
 }
 
+void puttime(unsigned char *text)
+{
+    int i;
+
+	unsigned short *where;
+    unsigned att = attrib << 8;
+	int y = 0;
+	int x = 72;
+	
+    for (i = 0; i < strlen(text); i++)
+    {
+        where = textmemptr + (y * 80 + x);
+		*where = text[i] | att;	/* Character AND attributes: color */
+		x++;
+    }
+}
+
+void cleartime()
+{
+    int i;
+
+	unsigned short *where;
+    unsigned att = attrib << 8;
+	int y = 0;
+	int x = 72;
+	
+    for (i = 0; i < 8; i++)
+    {
+        where = textmemptr + (y * 80 + x);
+		*where = ' ' | att;	/* Character AND attributes: color */
+		x++;
+    }
+}
+
 /* Uses the above routine to output a string... */
 void puts(unsigned char *text)
 {
@@ -159,5 +215,5 @@ void settextcolor(unsigned char forecolor, unsigned char backcolor)
 void init_video(void)
 {
     textmemptr = (unsigned short *)0xB8000;
-    cls();
+    cls1();
 }

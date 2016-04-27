@@ -1,13 +1,46 @@
-/* bkerndev - Bran's Kernel Development Tutorial
-*  By:   Brandon F. (friesenb@gmail.com)
-*  Desc: Timer driver
-*
-*  Notes: No warranty expressed or implied. Use at own risk. */
+/*
+*  Zos Attempt 5 v0.5
+*  Author: Zac McChesney
+*/
 #include <system.h>
 
 /* This will keep track of how many ticks that the system
 *  has been running for */
 int timer_ticks = 0;
+
+char secs[2] = {'0', '0'};
+char mins[2] = {'0', '0'};
+char hours[2] = {'0', '0'};
+
+void increaseTime()
+{
+	secs[0]++;
+		if (secs[0] == '9')
+		{
+			secs[1]++;
+			secs[0] = '0';
+		}
+		if (secs[1] == '6')
+		{
+			mins[0]++;
+			secs[1] = '0';
+		}
+		if (mins[0] == '9')
+		{
+			mins[1]++;
+			mins[0] = '0';
+		}
+		if (mins[1] == '6')
+		{
+			hours[0]++;
+			mins[1] = '0';
+		}
+		if (hours[0] == '9')
+		{
+			hours[1]++;
+			hours[0] = '0';
+		}
+}
 
 /* Handles the timer. In this case, it's very simple: We
 *  increment the 'timer_ticks' variable every time the
@@ -23,7 +56,10 @@ void timer_handler(struct regs *r)
     *  display a message on the screen */
     if (timer_ticks % 18 == 0)
     {
-        puts("One second has passed\n");
+		increaseTime();
+		char hms[8] = {hours[1], hours[0], ':', mins[1], mins[0], ':', secs[1], secs[0]};
+		//cleartime();
+		puttime(hms);
     }
 }
 
