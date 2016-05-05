@@ -10,6 +10,7 @@ int inputCount = 0;
 
 void shell()
 {
+	keyboard_install();
 	puts("User>");
 	acceptInput = 1;
 	
