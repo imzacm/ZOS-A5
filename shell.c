@@ -13,7 +13,10 @@ void shell()
 	keyboard_install();
 	puts("User>");
 	acceptInput = 1;
-	
+	while(acceptInput == 1)
+	{
+		
+	}
 	puts("You entered ");
 	puts(inputText);
 	puts("\n");
