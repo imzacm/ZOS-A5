@@ -24,4 +24,4 @@ sudo cp kernel.bin floppy/kernel.bin
 sudo umount floppy
 rm -rf floppy
 
-rm -rf *.o program
+rm -rf *.o program kernel.bin
