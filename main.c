@@ -128,7 +128,6 @@ void main(unsigned int ebx)
     irq_install();
     init_video();
     keyboard_install();
-	timer_install();
 
     __asm__ __volatile__ ("sti");
 	
