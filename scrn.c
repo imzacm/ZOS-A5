@@ -212,7 +212,7 @@ void writeToScreen(int x, int y, char toPlace)
 	}
 	Rows[y - 1][x - 1] = type;
 	where = textmemptr + (y * 80 + x);
-    *where = toPlace | att;
+        *where = toPlace | att;
 }
 
 /* Sets our text-mode VGA pointer, then clears the screen for us */
