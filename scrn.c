@@ -70,13 +70,13 @@ void cls()
 
     /* Sets the entire screen to spaces in our current
     *  color */
-    for(i = 2; i < 23; i++)
+    for(i = 0; i < 25; i++)
         memsetw (textmemptr + i * 80, blank, 80);
 
     /* Update out virtual cursor, and then move the
     *  hardware cursor */
     csr_x = 0;
-    csr_y = 2;
+    csr_y = 0;
     move_csr();
 }
 
