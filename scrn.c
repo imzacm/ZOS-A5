@@ -5,6 +5,30 @@
 #include <system.h>
 
 char Row0[80];
+char Row1[80];
+char Row2[80];
+char Row3[80];
+char Row4[80];
+char Row5[80];
+char Row6[80];
+char Row7[80];
+char Row8[80];
+char Row9[80];
+char Row10[80];
+char Row11[80];
+char Row12[80];
+char Row13[80];
+char Row14[80];
+char Row15[80];
+char Row16[80];
+char Row17[80];
+char Row18[80];
+char Row19[80];
+char Row20[80];
+char Row21[80];
+char Row22[80];
+char Row23[80];
+char Row24[80];
 
 /* These define our textpointer, our background and foreground
 *  colors (attributes), and x and y cursor coordinates */
@@ -159,6 +183,12 @@ void settextcolor(unsigned char forecolor, unsigned char backcolor)
 }
 
 //TODO - Create a grid system to make output easier.
+
+void writeToScreen(int x, int y, char toPlace)
+{
+	char type;
+	
+}
 
 /* Sets our text-mode VGA pointer, then clears the screen for us */
 void init_video(void)
