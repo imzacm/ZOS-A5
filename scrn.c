@@ -180,6 +180,8 @@ char * symbols = {'!', '£', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '
 char Rows[25][80];
 void writeToScreen(int x, int y, char toPlace)
 {
+	unsigned short *where;
+    unsigned att = attrib << 8;
 	char type;
 	//x = collum
 	//y = row
@@ -208,7 +210,9 @@ void writeToScreen(int x, int y, char toPlace)
 	{
 		type = 'O';
 	}
-	
+	Rows[y - 1][x - 1] = type;
+	where = textmemptr + (y * 80 + x);
+    *where = toPlace | att;
 }
 
 /* Sets our text-mode VGA pointer, then clears the screen for us */

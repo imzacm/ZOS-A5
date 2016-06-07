@@ -4,6 +4,7 @@
 */
 #ifndef __SYSTEM_H
 #define __SYSTEM_H
+#endif
 
 typedef unsigned long int uint32_t;
 
@@ -94,4 +95,5 @@ extern int commandExists(char* command);
 extern char inputText[128];
 extern int inputCount;
 
-#endif
+/* SCRN.C */
+extern char Rows[25][80];
