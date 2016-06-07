@@ -156,6 +156,8 @@ void settextcolor(unsigned char forecolor, unsigned char backcolor)
     attrib = (backcolor << 4) | (forecolor & 0x0F);
 }
 
+//TODO - Create a grid system to make output easier.
+
 /* Sets our text-mode VGA pointer, then clears the screen for us */
 void init_video(void)
 {
