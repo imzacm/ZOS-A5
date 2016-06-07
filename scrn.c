@@ -80,27 +80,6 @@ void cls()
     move_csr();
 }
 
-void cls1()
-{
-    unsigned blank;
-    int i;
-
-    /* Again, we need the 'short' that will be used to
-    *  represent a space with color */
-    blank = 0x20 | (attrib << 8);
-
-    /* Sets the entire screen to spaces in our current
-    *  color */
-    for(i = 0; i < 25; i++)
-        memsetw (textmemptr + i * 80, blank, 80);
-
-    /* Update out virtual cursor, and then move the
-    *  hardware cursor */
-    csr_x = 0;
-    csr_y = 0;
-    move_csr();
-}
-
 /* Puts a single character on the screen */
 void putch(unsigned char c)
 {
@@ -158,40 +137,6 @@ void putch(unsigned char c)
     move_csr();
 }
 
-void puttime(unsigned char *text)
-{
-    int i;
-
-	unsigned short *where;
-    unsigned att = attrib << 8;
-	int y = 0;
-	int x = 72;
-	
-    for (i = 0; i < strlen(text); i++)
-    {
-        where = textmemptr + (y * 80 + x);
-		*where = text[i] | att;	/* Character AND attributes: color */
-		x++;
-    }
-}
-
-void cleartime()
-{
-    int i;
-
-	unsigned short *where;
-    unsigned att = attrib << 8;
-	int y = 0;
-	int x = 72;
-	
-    for (i = 0; i < 8; i++)
-    {
-        where = textmemptr + (y * 80 + x);
-		*where = ' ' | att;	/* Character AND attributes: color */
-		x++;
-    }
-}
-
 /* Uses the above routine to output a string... */
 void puts(unsigned char *text)
 {
@@ -215,5 +160,5 @@ void settextcolor(unsigned char forecolor, unsigned char backcolor)
 void init_video(void)
 {
     textmemptr = (unsigned short *)0xB8000;
-    cls1();
+    cls();
 }
