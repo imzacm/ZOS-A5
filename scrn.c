@@ -4,6 +4,8 @@
 */
 #include <system.h>
 
+char Row0[80];
+
 /* These define our textpointer, our background and foreground
 *  colors (attributes), and x and y cursor coordinates */
 unsigned short *textmemptr;
