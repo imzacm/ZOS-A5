@@ -4,32 +4,6 @@
 */
 #include <system.h>
 
-char Row0[80];
-char Row1[80];
-char Row2[80];
-char Row3[80];
-char Row4[80];
-char Row5[80];
-char Row6[80];
-char Row7[80];
-char Row8[80];
-char Row9[80];
-char Row10[80];
-char Row11[80];
-char Row12[80];
-char Row13[80];
-char Row14[80];
-char Row15[80];
-char Row16[80];
-char Row17[80];
-char Row18[80];
-char Row19[80];
-char Row20[80];
-char Row21[80];
-char Row22[80];
-char Row23[80];
-char Row24[80];
-
 /* These define our textpointer, our background and foreground
 *  colors (attributes), and x and y cursor coordinates */
 unsigned short *textmemptr;
@@ -182,11 +156,58 @@ void settextcolor(unsigned char forecolor, unsigned char backcolor)
     attrib = (backcolor << 4) | (forecolor & 0x0F);
 }
 
-//TODO - Create a grid system to make output easier.
+int charInArr(char * arr, char ch)
+{
+	int ret = 0;
+	for (int i = 0; i < arr.size(); i++)
+	{
+		if (arr[i] == ch)
+		{
+			ret++;
+		}
+	}
+	if (ret == 0)
+	{
+		ret = -1;
+	}
+	return ret;
+}
 
+char * nums = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+char * lowerCase = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+char * upperCase = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+char * symbols = {'!', '£', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', ']', '{', '}', '@', '~', '#', '<', '>', ',', '.', '?', '/', '|', '\\', '`', '¬'};
+char Rows[25][80];
 void writeToScreen(int x, int y, char toPlace)
 {
 	char type;
+	//x = collum
+	//y = row
+	char type;
+	if (charInArr(nums, toPlace) != -1)
+	{
+		type = 'N';
+	}
+	if (charInArr(lowerCase, toPlace) != -1)
+	{
+		type = 'L';
+	}
+	if (charInArr(upperCase, toPlace) != -1)
+	{
+		type = 'U';
+	}
+	if (charInArr(symbols, toPlace) != -1)
+	{
+		type = 'S';
+	}
+	if (toPlace == ' ')
+	{
+		type = ' ';
+	}
+	if (charInArr(nums, toPlace) == -1 && charInArr(lowerCase, toPlace) == -1 && charInArr(upperCase, toPlace) == -1 && charInArr(symbols, toPlace) == -1)
+	{
+		type = 'O';
+	}
 	
 }
 
