@@ -119,13 +119,13 @@ void halt()
 
 void input()
 {	
-	inputCount = 0;
 	puts("You said ");
 	for (int i = 0; i < inputCount; i++)
 	{
 		putch(inputText[i]);
 	}
 	puts("\n");
+	inputCount = 0;
 }
 
 void main(unsigned int ebx)
