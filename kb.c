@@ -266,16 +266,12 @@ void keyboard_handler(struct regs *r)
 		{
 			halt();
 		}
-		if (scancode == 82)
-		{
-			shell();
-		}
 		if (acceptInput == 1)
 		{
 			if (scancode == 28)
 			{
-				acceptInput = 0;
-				inputCount = 0;
+				putch('\n');
+				inputText[inputCount] = '\n';
 			}
 			else
 			{

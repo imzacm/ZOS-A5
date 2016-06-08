@@ -17,11 +17,8 @@ $cc-gcc -Wall -Wno-pointer-sign -Wno-sign-compare -O -fstrength-reduce -fomit-fr
 $cc-ld -T link.ld -o kernel.bin start.o main.o scrn.o gdt.o idt.o isrs.o irq.o timer.o kb.o zfs.o beep.o shell.o
 
 #makeImage
-mkdir floppy
-sudo mount OS.img -o loop floppy
-sudo rm -rf floppy/kernel.bin
-sudo cp kernel.bin floppy/kernel.bin
-sudo umount floppy
-rm -rf floppy
+rm -rf iso/boot/kernel.bin
+sudo cp kernel.bin iso/boot/kernel.bin
+grub-mkrescue -o OS.iso iso
 
 rm -rf *.o program kernel.bin

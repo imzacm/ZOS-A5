@@ -117,6 +117,17 @@ void halt()
 	outportb (0xB004, 0x2000);
 }
 
+void input()
+{	
+	inputCount = 0;
+	puts("You said ");
+	for (int i = 0; i < inputCount; i++)
+	{
+		putch(inputText[i]);
+	}
+	puts("\n");
+}
+
 void main(unsigned int ebx)
 {
 	//multiboot_info_t *mbinfo = (multiboot_info_t *) ebx;
@@ -128,12 +139,15 @@ void main(unsigned int ebx)
     irq_install();
     init_video();
     keyboard_install();
+    timer_install();
 
     __asm__ __volatile__ ("sti");
 	
 	puts("Zos Attempt 5 v0.5\n");
 	puts("Ctrl + Alt + Del = Halt\n");
-	puts("Press insert to enter a command\n");
+	
+	puts("User>");
+	acceptInput = 1;
 	
     for (;;);
 }

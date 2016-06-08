@@ -8,40 +8,6 @@
 *  has been running for */
 int timer_ticks = 0;
 
-char secs[2] = {'0', '0'};
-char mins[2] = {'0', '0'};
-char hours[2] = {'0', '0'};
-
-void increaseTime()
-{
-	secs[0]++;
-		if (secs[0] == '9')
-		{
-			secs[1]++;
-			secs[0] = '0';
-		}
-		if (secs[1] == '6')
-		{
-			mins[0]++;
-			secs[1] = '0';
-		}
-		if (mins[0] == '9')
-		{
-			mins[1]++;
-			mins[0] = '0';
-		}
-		if (mins[1] == '6')
-		{
-			hours[0]++;
-			mins[1] = '0';
-		}
-		if (hours[0] == '9')
-		{
-			hours[1]++;
-			hours[0] = '0';
-		}
-}
-
 /* Handles the timer. In this case, it's very simple: We
 *  increment the 'timer_ticks' variable every time the
 *  timer fires. By default, the timer fires 18.222 times
@@ -54,12 +20,13 @@ void timer_handler(struct regs *r)
 
     /* Every 18 clocks (approximately 1 second), we will
     *  display a message on the screen */
-    if (timer_ticks % 18 == 0)
+    if (timer_ticks % 4 == 0)
     {
-		increaseTime();
-		char hms[8] = {hours[1], hours[0], ':', mins[1], mins[0], ':', secs[1], secs[0]};
-		//cleartime();
-		puttime(hms);
+		if (acceptInput == 1 && inputText[inputCount] == '\n')
+		{
+			acceptInput = 0;
+			input();
+		}
     }
 }
 

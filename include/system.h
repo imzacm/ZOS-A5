@@ -33,14 +33,13 @@ extern char * strchr (register const char *s, int c);
 extern int strncmp(const char *s1, const char *s2, register size_t n);
 extern char * strstr (const char *s1, const char *s2);
 
+extern void input();
+
 /* CONSOLE.C */
 extern void init_video(void);
 extern void puts(unsigned char *text);
 extern void putch(unsigned char c);
 extern void cls();
-extern void cls1();
-extern void puttime(unsigned char *text);
-extern void cleartime();
 
 /* GDT.C */
 extern void gdt_set_gate(int num, unsigned long base, unsigned long limit, unsigned char access, unsigned char gran);
@@ -92,8 +91,9 @@ extern void beep();
 extern int acceptInput;
 extern void shell();
 extern int commandExists(char* command);
-extern char inputText[128];
+extern char inputText[1024];
 extern int inputCount;
 
 /* SCRN.C */
 extern char Rows[25][80];
+extern char nums[10];
