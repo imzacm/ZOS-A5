@@ -177,41 +177,40 @@ int charInArr(char * arr, char ch)
 char nums[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 char lowerCase[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 char upperCase[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-char symbols[30] = {'!', '£', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', ']', '{', '}', '@', '~', '#', '<', '>', ',', '.', '?', '/', '|', '\\', '`', '¬'};
+char symbols[30] = {'!', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', ']', '{', '}', '@', '~', '#', '<', '>', ',', '.', '?', '/', '|', '\\', '`'};
 char Rows[25][80];
 void writeToScreen(int x, int y, char toPlace)
 {
 	unsigned short *where;
     unsigned att = attrib << 8;
-	char type;
+	char t;
 	//x = collum
 	//y = row
-	char type;
 	if (charInArr(nums, toPlace) != -1)
 	{
-		type = 'N';
+		t = 'N';
 	}
 	if (charInArr(lowerCase, toPlace) != -1)
 	{
-		type = 'L';
+		t = 'L';
 	}
 	if (charInArr(upperCase, toPlace) != -1)
 	{
-		type = 'U';
+		t = 'U';
 	}
 	if (charInArr(symbols, toPlace) != -1)
 	{
-		type = 'S';
+		t = 'S';
 	}
 	if (toPlace == ' ')
 	{
-		type = ' ';
+		t = ' ';
 	}
 	if (charInArr(nums, toPlace) == -1 && charInArr(lowerCase, toPlace) == -1 && charInArr(upperCase, toPlace) == -1 && charInArr(symbols, toPlace) == -1)
 	{
-		type = 'O';
+		t = 'O';
 	}
-	Rows[y - 1][x - 1] = type;
+	Rows[y - 1][x - 1] = t;
 	where = textmemptr + (y * 80 + x);
         *where = toPlace | att;
 }
