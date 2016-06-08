@@ -90,7 +90,6 @@ extern void beep();
 /* SHELL.C */
 extern int acceptInput;
 extern void shell();
-extern int commandExists(char* command);
 extern char inputText[1024];
 extern int inputCount;
 
