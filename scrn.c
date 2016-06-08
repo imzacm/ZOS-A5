@@ -58,6 +58,8 @@ void move_csr(void)
     outportb(0x3D5, temp);
 }
 
+char Rows[25][80];
+
 /* Clears the screen */
 void cls()
 {
@@ -78,6 +80,14 @@ void cls()
     csr_x = 0;
     csr_y = 0;
     move_csr();
+    
+    for (int y = 0; y < 25; y++)
+    {
+		for (int x = 0; x < 80; x++)
+		{
+			Rows[y][x] = '\0';
+		}
+	}
 }
 
 /* Puts a single character on the screen */
@@ -174,45 +184,34 @@ int charInArr(char * arr, char ch)
 	return ret;
 }
 
-char nums[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-char lowerCase[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-char upperCase[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-char symbols[30] = {'!', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', ']', '{', '}', '@', '~', '#', '<', '>', ',', '.', '?', '/', '|', '\\', '`'};
-char Rows[25][80];
 void writeToScreen(int x, int y, char toPlace)
 {
 	unsigned short *where;
     unsigned att = attrib << 8;
-	char t;
 	//x = collum
 	//y = row
-	if (charInArr(nums, toPlace) != -1)
-	{
-		t = 'N';
-	}
-	if (charInArr(lowerCase, toPlace) != -1)
-	{
-		t = 'L';
-	}
-	if (charInArr(upperCase, toPlace) != -1)
-	{
-		t = 'U';
-	}
-	if (charInArr(symbols, toPlace) != -1)
-	{
-		t = 'S';
-	}
-	if (toPlace == ' ')
-	{
-		t = ' ';
-	}
-	if (charInArr(nums, toPlace) == -1 && charInArr(lowerCase, toPlace) == -1 && charInArr(upperCase, toPlace) == -1 && charInArr(symbols, toPlace) == -1)
-	{
-		t = 'O';
-	}
-	Rows[y - 1][x - 1] = t;
+	Rows[y - 1][x - 1] = toPlace;
 	where = textmemptr + (y * 80 + x);
-        *where = toPlace | att;
+    *where = toPlace | att;
+}
+
+void splashScreen(char toPlace)
+{
+	for (int y = 0; y < 25; y++)
+    {
+		for (int x = 0; x < 80; x++)
+		{
+			writeToScreen(x, y, toPlace);
+		}
+	}
+	
+	for (int y = 0; y < 25; y++)
+    {
+		for (int x = 0; x < 80; x++)
+		{
+			writeToScreen(x, y, ' ');
+		}
+	}
 }
 
 /* Sets our text-mode VGA pointer, then clears the screen for us */

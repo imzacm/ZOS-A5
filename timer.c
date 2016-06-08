@@ -20,7 +20,7 @@ void timer_handler(struct regs *r)
 
     /* Every 18 clocks (approximately 1 second), we will
     *  display a message on the screen */
-    if (timer_ticks % 4 == 0)
+    if (timer_ticks % 2 == 0)
     {
 		if (acceptInput == 1 && inputText[inputCount] == '\n')
 		{

@@ -11,10 +11,10 @@ $cc-gcc -Wall -Wno-pointer-sign -Wno-sign-compare -O -fstrength-reduce -fomit-fr
 $cc-gcc -Wall -Wno-pointer-sign -Wno-sign-compare -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -I./include -c -o irq.o irq.c
 $cc-gcc -Wall -Wno-int-conversion -Wno-pointer-sign -Wno-sign-compare -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -I./include -c -o timer.o timer.c
 $cc-gcc -Wall -Wno-overflow -Wno-multichar -Wno-pointer-sign -Wno-sign-compare -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -I./include -c -o kb.o kb.c
-$cc-gcc -Wall -Wno-int-conversion -Wno-overflow -Wno-multichar -Wno-pointer-sign -Wno-sign-compare -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -I./include -c -o zfs.o zfs.c
 $cc-gcc -Wall -Wno-pointer-sign -Wno-sign-compare -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -I./include -c -o beep.o beep.c
 $cc-gcc -Wall -Wno-pointer-sign -Wno-sign-compare -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -I./include -c -o shell.o shell.c
-$cc-ld -T link.ld -o kernel.bin start.o main.o scrn.o gdt.o idt.o isrs.o irq.o timer.o kb.o zfs.o beep.o shell.o
+$cc-gcc -Wall -Wno-pointer-sign -Wno-sign-compare -O -fstrength-reduce -fomit-frame-pointer -finline-functions -nostdinc -fno-builtin -I./include -c -o commands.o commands.c
+$cc-ld -T link.ld -o kernel.bin start.o main.o scrn.o gdt.o idt.o isrs.o irq.o timer.o kb.o beep.o shell.o commands.o
 
 #makeImage
 rm -rf iso/boot/kernel.bin

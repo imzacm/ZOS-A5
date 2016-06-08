@@ -268,6 +268,10 @@ void keyboard_handler(struct regs *r)
 		}
 		if (acceptInput == 1)
 		{
+			if (inputCount == -1)
+			{
+				inputCount++;
+			}
 			if (scancode == 28)
 			{
 				putch('\n');
@@ -277,13 +281,17 @@ void keyboard_handler(struct regs *r)
 			{
 				if (shift == 1)
 				{
-					putch(kbdukShift[scancode]);
-					inputText[inputCount] = kbdukShift[scancode];
+					char a = kbdukShift[scancode];
+					putch(a);
+					inputText[inputCount] = a;
+					inputCount++;
 				}
 				if (shift == 0)
 				{
-					putch(kbduk[scancode]);
-					inputText[inputCount] = kbduk[scancode];
+					char a = kbduk[scancode];
+					putch(a);
+					inputText[inputCount] = a;
+					inputCount++;
 				}	
 			}
 		}	

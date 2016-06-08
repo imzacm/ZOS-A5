@@ -34,6 +34,8 @@ extern int strncmp(const char *s1, const char *s2, register size_t n);
 extern char * strstr (const char *s1, const char *s2);
 
 extern void input();
+char exitLoop;
+extern char * OSname;
 
 /* CONSOLE.C */
 extern void init_video(void);
@@ -95,4 +97,7 @@ extern int inputCount;
 
 /* SCRN.C */
 extern char Rows[25][80];
-extern char nums[10];
+extern void splashScreen(char toPlace);
+
+/* COMMANDS.C */
+extern void command_help();

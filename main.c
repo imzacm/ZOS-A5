@@ -101,7 +101,6 @@ void outportb (unsigned short _port, unsigned char _data)
 
 void on_exit()
 {
-	exit_zfs();
 	irq_uninstall_handler(0);
 	irq_uninstall_handler(1);
 }
@@ -117,37 +116,78 @@ void halt()
 	outportb (0xB004, 0x2000);
 }
 
-void input()
-{	
-	puts("You said ");
-	for (int i = 0; i < inputCount; i++)
-	{
-		putch(inputText[i]);
-	}
-	puts("\n");
-	inputCount = 0;
-}
+void input();
+
+int firstBoot = 1;
+
+char exitLoop = 1;
+
+char * OSname = "Zos Attempt 5 v0.5";
 
 void main(unsigned int ebx)
 {
-	//multiboot_info_t *mbinfo = (multiboot_info_t *) ebx;
-    //unsigned int address_of_module = mbinfo->mods_addr;
-	//uint32_t modcount = mbinfo->mods_count;
-    gdt_install();
-    idt_install();
-    isrs_install();
-    irq_install();
-    init_video();
-    keyboard_install();
-    timer_install();
+	if (firstBoot == 1)
+	{
+		splashScreen('Z');//Currently too fast to see
+		//multiboot_info_t *mbinfo = (multiboot_info_t *) ebx;
+		//unsigned int address_of_module = mbinfo->mods_addr;
+		//uint32_t modcount = mbinfo->mods_count;
+		gdt_install();
+		idt_install();
+		isrs_install();
+		irq_install();
+		init_video();
+		keyboard_install();
+		timer_install();
 
-    __asm__ __volatile__ ("sti");
+		__asm__ __volatile__ ("sti");
+		
+		puts(OSname);
+		puts("\n");
+		puts("Ctrl + Alt + Del = Halt\n");
+		
+		firstBoot = 0;
+	}
 	
-	puts("Zos Attempt 5 v0.5\n");
-	puts("Ctrl + Alt + Del = Halt\n");
 	
-	puts("User>");
-	acceptInput = 1;
+    for (;;)
+    {
+		if (exitLoop == 1)
+		{
+			shell();
+		}
+	}
+}
+
+void input()
+{	
+	//puts("You said ");
+	//for (int i = 0; i < inputCount; i++)
+	//{
+	//	putch(inputText[i]);
+	//}
+	//puts("\n");
+	char command[inputCount];
+	for (int i = 0; i < inputCount; i++)
+	{
+		command[i] = inputText[i];
+		inputText[i] = '\0';
+	}
+	inputCount = -1;
 	
-    for (;;);
+	//Handle command
+	int invalid = 1;
+	if (command == "help")
+	{
+		invalid = 0;
+		command_help();
+	}
+	
+	if (invalid == 1)
+	{
+		puts("Invalid command, type 'help' for a list of commands\n");
+	}
+	//End handle command
+	
+	shell();
 }

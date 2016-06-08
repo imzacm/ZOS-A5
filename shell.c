@@ -10,6 +10,8 @@ int inputCount = 0;
 
 void shell()
 {
-	
+	exitLoop = 0;
+	puts("User>");
+	acceptInput = 1;
 }
 
