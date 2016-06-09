@@ -177,7 +177,7 @@ void input()
 	
 	//Handle command
 	int invalid = 1;
-	if (command == "help")
+	if (command[0] == 'h' && command[1] == 'e' && command[2] == 'l' && command[3] == 'p')
 	{
 		invalid = 0;
 		command_help();
