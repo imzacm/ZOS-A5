@@ -1,5 +1,5 @@
 #! /bin/bash
-export PREFIX="$HOME/Zos/cross/bin"
+export PREFIX="$HOME/opt/cross/bin"
 export TARGET=i686-elf
 export cc="$PREFIX/$TARGET"
 nasm -f elf -o start.o start.asm
