@@ -5,6 +5,12 @@
 #include <system.h>
 #include <multiboot.h>
 
+void on_exit()
+{
+	irq_uninstall_handler(0);
+	irq_uninstall_handler(1);
+}
+
 char * strchr (register const char *s, int c)
 {
   do {
@@ -110,12 +116,6 @@ void outportb (unsigned short _port, unsigned char _data)
     __asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
 }
 
-
-void on_exit()
-{
-	irq_uninstall_handler(0);
-	irq_uninstall_handler(1);
-}
 
 void input();
 
