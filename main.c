@@ -10,7 +10,7 @@ char * strchr (register const char *s, int c)
   do {
     if (*s == c)
       {
-	return (char*)s;
+	       return (char*)s;
       }
   } while (*s++);
   return (0);
@@ -87,6 +87,17 @@ size_t strlen(const char *str)
     return retval;
 }
 
+void halt()
+{
+	on_exit();
+	puts("Halting ...");
+	beep();
+	asm volatile ("cli");
+	while ((inportb(0x64) & 0x02) != 0);
+	outportb(0x60, 0xfe);
+	outportb (0xB004, 0x2000);
+}
+
 unsigned char inportb (unsigned short _port)
 {
     unsigned char rv;
@@ -99,21 +110,11 @@ void outportb (unsigned short _port, unsigned char _data)
     __asm__ __volatile__ ("outb %1, %0" : : "dN" (_port), "a" (_data));
 }
 
+
 void on_exit()
 {
 	irq_uninstall_handler(0);
 	irq_uninstall_handler(1);
-}
-
-void halt()
-{
-	on_exit();
-	puts("Halting ...");
-	beep();
-	asm volatile ("cli");
-	while ((inportb(0x64) & 0x02) != 0);
-	outportb(0x60, 0xfe);
-	outportb (0xB004, 0x2000);
 }
 
 void input();
@@ -141,15 +142,15 @@ void main(unsigned int ebx)
 		timer_install();
 
 		__asm__ __volatile__ ("sti");
-		
+
 		puts(OSname);
 		puts("\n");
 		puts("Ctrl + Alt + Del = Halt\n");
-		
+
 		firstBoot = 0;
 	}
-	
-	
+
+
     for (;;)
     {
 		if (exitLoop == 1)
@@ -160,7 +161,7 @@ void main(unsigned int ebx)
 }
 
 void input()
-{	
+{
 	//puts("You said ");
 	//for (int i = 0; i < inputCount; i++)
 	//{
@@ -174,7 +175,7 @@ void input()
 		inputText[i] = '\0';
 	}
 	inputCount = -1;
-	
+
 	//Handle command
 	int invalid = 1;
 	if (command[0] == 'h' && command[1] == 'e' && command[2] == 'l' && command[3] == 'p')
@@ -182,12 +183,19 @@ void input()
 		invalid = 0;
 		command_help();
 	}
-	
+
+	//if (command[0] == 'e' && command[1] == 'c' && command[2] == 'h' && command[3] == 'o')
+	//{
+	//	invalid = 0;
+
+	//	command_echo(args);
+	//}
+
 	if (invalid == 1)
 	{
 		puts("Invalid command, type 'help' for a list of commands\n");
 	}
 	//End handle command
-	
+
 	shell();
 }

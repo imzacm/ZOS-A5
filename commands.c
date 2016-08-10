@@ -12,3 +12,12 @@ void command_help()
 	puts("Command	|	Usage	|	Description\n");
 	puts("help		|	no args	|	Shows this\n");
 }
+
+//void command_echo(char[] args)
+//{
+//	puts("\n");
+//	puts(OSname);
+//	puts("\nHelp\n");
+//	puts("Command	|	Usage	|	Description\n");
+//	puts("help		|	no args	|	Shows this\n");
+//}
