@@ -5,6 +5,8 @@
 #include <system.h>
 #include <multiboot.h>
 
+ char *osVersion = "0.6";
+
 void on_exit()
 {
 	irq_uninstall_handler(0);
@@ -123,8 +125,6 @@ int firstBoot = 1;
 
 char exitLoop = 1;
 
-char * OSname = "Zos Attempt 5 v0.5";
-
 void main(unsigned int ebx)
 {
 	if (firstBoot == 1)
@@ -143,7 +143,8 @@ void main(unsigned int ebx)
 
 		__asm__ __volatile__ ("sti");
 
-		puts(OSname);
+		puts("ZOS Attempt 5 ");
+    puts(osVersion);
 		puts("\n");
 		puts("Ctrl + Alt + Del = Halt\n");
 
@@ -162,12 +163,6 @@ void main(unsigned int ebx)
 
 void input()
 {
-	//puts("You said ");
-	//for (int i = 0; i < inputCount; i++)
-	//{
-	//	putch(inputText[i]);
-	//}
-	//puts("\n");
 	char command[inputCount];
 	for (int i = 0; i < inputCount; i++)
 	{

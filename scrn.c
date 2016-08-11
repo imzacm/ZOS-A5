@@ -80,7 +80,7 @@ void cls()
     csr_x = 0;
     csr_y = 0;
     move_csr();
-    
+
     for (int y = 0; y < 25; y++)
     {
 		for (int x = 0; x < 80; x++)
@@ -99,8 +99,8 @@ void putch(unsigned char c)
     /* Handle a backspace, by moving the cursor back one space */
     if(c == 0x08)
     {
-        if(csr_x != 0) csr_x--;
-		where = textmemptr + (csr_y * 80 + csr_x);
+        if(csr_x > 5) csr_x--;
+		    where = textmemptr + (csr_y * 80 + csr_x);
         *where = ' ' | att;
     }
     /* Handles a tab by incrementing the cursor's x, but only
@@ -204,7 +204,7 @@ void splashScreen(char toPlace)
 			writeToScreen(x, y, toPlace);
 		}
 	}
-	
+
 	for (int y = 0; y < 25; y++)
     {
 		for (int x = 0; x < 80; x++)

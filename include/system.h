@@ -10,13 +10,15 @@ typedef unsigned long int uint32_t;
 
 typedef int size_t;
 
+extern char *osVersion;
+
 /* This defines what the stack looks like after an ISR was running */
 struct regs
 {
     unsigned int gs, fs, es, ds;
     unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;
     unsigned int int_no, err_code;
-    unsigned int eip, cs, eflags, useresp, ss;    
+    unsigned int eip, cs, eflags, useresp, ss;
 };
 
 /* MAIN.C */
@@ -35,7 +37,6 @@ extern char * strstr (const char *s1, const char *s2);
 
 extern void input();
 char exitLoop;
-extern char * OSname;
 
 /* CONSOLE.C */
 extern void init_video(void);

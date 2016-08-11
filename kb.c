@@ -230,18 +230,6 @@ void keyboard_handler(struct regs *r)
     }
     else
     {
-        /* Here, a key was just pressed. Please note that if you
-        *  hold a key down, you will get repeated key press
-        *  interrupts. */
-
-        /* Just to show you how this works, we simply translate
-        *  the keyboard scancode into an ASCII value, and then
-        *  display it to the screen. You can get creative and
-        *  use some flags to see if a shift is pressed and use a
-        *  different layout, or you can add another 128 entries
-        *  to the above layout to correspond to 'shift' being
-        *  held. If shift is held using the larger lookup table,
-        *  you would add 128 to the scancode when you look for it */
 		if (scancode == 42 || scancode == 54)
 		{
 			shift = 1;
@@ -292,9 +280,9 @@ void keyboard_handler(struct regs *r)
 					putch(a);
 					inputText[inputCount] = a;
 					inputCount++;
-				}	
+				}
 			}
-		}	
+		}
     }
 }
 
